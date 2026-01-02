@@ -38,7 +38,7 @@ interface WeatherApi {
 class MainActivity : AppCompatActivity() {
 
     // REPLACE WITH YOUR OPENWEATHERMAP API KEY
-    private val API_KEY = "e187b867c7e2277155c01b068c4085da"
+    private val API_KEY = ""
 
     private lateinit var tvTemp: TextView
     private lateinit var ivIcon: ImageView
