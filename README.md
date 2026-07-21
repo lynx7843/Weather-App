@@ -10,13 +10,11 @@
 
 * **Real-time weather information**
 * **Location-based updates**
-* **Hourly Forecasts**
-* **Clean UI**
 
 ## 🛠️ Built With
 
 * **IDE:** Android Studio
-* **Language:** Java
+* **Language:** Kotlin
 * **Data Format:** JSON via REST API
 * **UI Components:** Material Design
 
@@ -39,15 +37,22 @@ Follow these instructions to get a copy of the project up and running on your lo
 2.  **Open the project:**
     Start Android Studio and select "Open an existing Android Studio project" pointing to the cloned folder.
 
-3.  **Build and Run:**
+3.  **Add your API key:**
+    Add the following line to your local `local.properties` file (this file is gitignored and never committed):
+    ```properties
+    WEATHER_API_KEY=your_openweathermap_api_key
+    ```
+
+4.  **Build and Run:**
     Click the **Run** button in Android Studio to build the app on your emulator or physical device.
 
 ## 🔑 API Used
 
 This project uses the [OpenWeather API](https://openweathermap.org/api) to fetch weather data.
-*(If you used a different API, update this link).*
 
 ## 📈 Future Improvements
+
+✔️ Hourly forecasts
 
 ✔️ Dark mode support
 

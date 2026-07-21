@@ -22,7 +22,7 @@ import retrofit2.http.Query
 // --- 1. DATA MODELS (To hold the API data) ---
 data class WeatherResponse(val main: Main, val weather: List<Weather>)
 data class Main(val temp: Float)
-data class Weather(val icon: String, val description: String)
+data class Weather(val icon: String)
 
 // --- 2. API INTERFACE ---
 interface WeatherApi {
@@ -37,8 +37,9 @@ interface WeatherApi {
 
 class MainActivity : AppCompatActivity() {
 
-    // REPLACE WITH YOUR OPENWEATHERMAP API KEY
-    private val API_KEY = ""
+    companion object {
+        private const val LOCATION_PERMISSION_REQUEST_CODE = 100
+    }
 
     private lateinit var tvTemp: TextView
     private lateinit var ivIcon: ImageView
@@ -69,7 +70,7 @@ class MainActivity : AppCompatActivity() {
             ActivityCompat.requestPermissions(
                 this,
                 arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
-                100
+                LOCATION_PERMISSION_REQUEST_CODE
             )
         } else {
             // Permission already granted, get location
@@ -84,7 +85,7 @@ class MainActivity : AppCompatActivity() {
         grantResults: IntArray
     ) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-        if (requestCode == 100 && grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+        if (requestCode == LOCATION_PERMISSION_REQUEST_CODE && grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
             getLocation()
         } else {
             Toast.makeText(this, "Permission denied. Cannot show weather.", Toast.LENGTH_SHORT).show()
@@ -115,7 +116,7 @@ class MainActivity : AppCompatActivity() {
             .build()
 
         val api = retrofit.create(WeatherApi::class.java)
-        val call = api.getCurrentWeather(lat, lon, "metric", API_KEY)
+        val call = api.getCurrentWeather(lat, lon, apiKey = BuildConfig.WEATHER_API_KEY)
 
         call.enqueue(object : Callback<WeatherResponse> {
             override fun onResponse(call: Call<WeatherResponse>, response: Response<WeatherResponse>) {
